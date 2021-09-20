@@ -2,6 +2,8 @@
 
 An application to balance team players for a match.
 
+[Live Demo](https://matchmaking-u2rlwnoy2a-uc.a.run.app/)
+
 # Steps to run:
 
 1) Start a postgresql server
@@ -13,24 +15,24 @@ DATABASE_URL="postgres://postgres:<password>@<databaseurl>:5432/mydatabase"
 ```
 
 3) Run:
-```powershell
+```bash
 python create.py
 python import.py
 flask run
 ```
 
-Cloud Run instance:
+# Deployment to cloud run:
 
 Commands to build
-```powershell
+```bash
 # Build and push to remote repository
-gcloud builds submit --tag gcr.io/nms-small-apps/matchmaking --project nms-small-apps
+gcloud builds submit --tag gcr.io/<projectname>/matchmaking --project <projectname>
     # ALTERNATIVELY YOU CAN:
         ## step1) building
-        # docker build . -t gcr.io/proj/matchmaking
+        # docker build . -t gcr.io/<projectname>/matchmaking
         ## step2) Upload to google cloud repository
-        # docker push gcr.io/proj/matchmaking
+        # docker push gcr.io/<projectname>/matchmaking
 # Deploy to Cloud Run
 gcloud config set run/region us-central1
-gcloud run deploy --image gcr.io/nms-small-apps/matchmaking --platform managed --port=5000
+gcloud run deploy --image gcr.io/<projectname>/matchmaking --platform managed --port=5000 --project <projectname>
 ```
