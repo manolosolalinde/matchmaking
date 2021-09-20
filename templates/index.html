@@ -1,0 +1,125 @@
+{% extends "layout.html" %} {% block title %} Players {% endblock %} {% block body %}
+
+<h2>TONINA's LAN - MATCHMAKING</h2>
+<!-- <form action="{{ url_for('matchmaking') }}" method="post" name=form1>
+
+    Match Number: {{Matchobj.id}}
+    <div class="form-group">
+        <input class="form-control" name="matchplayer" placeholder="Player Name">
+    </div>
+    <div class="form-group">
+        <button class="btn btn-primary" type="submit">Add Match Player</button>
+    </div>
+
+</form> -->
+<form action="{{ url_for('matchmaking') }}" method="post" name=form2>
+    <div class="form-group">
+        <button class="btn btn-primary" name="matchmaking" value="pressed">
+            <h2>Matchmaking</h2>
+        </button>
+    </div>
+</form>
+</form>
+<form action="{{ url_for('clear_players') }}" method="post" name=form2>
+    <div class="form-group">
+        <button class="btn btn-primary" name="clear" value="pressed">Clear Players</button>
+    </div>
+</form>
+
+<!-- <form action="{{ url_for('matchsumary') }}" method="post" name=form2>
+    <div class="form-group">
+        <button class="btn btn-primary" name="radiantvictory" value="pressed" disabled>Radiant Victory</button>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-primary" name="direvictory" value="pressed" disabled>Dire Victory</button>
+    </div>
+</form> -->
+<h2>TEAM 1</h2>
+<table>
+    <tr>
+        <th>Nombre</th>
+        <th>MMR</th>
+    </tr>
+    {% for players in Team1 %}
+    <tr>
+        <td>{{ players.name }}</td>
+        <td>{{ players.mmr }}</td>
+    </tr>
+    {% else %}
+    <tr>No Players.</tr>
+    {% endfor %}
+    <!-- <tr>
+        <td>Average MMR</td>
+        <td>{{ Matchobj.avg_mmr(0) }}</td>
+    </tr> -->
+</table>
+<h4>Average MMR: {{ Matchobj.avg_mmr(0) }}</h4>
+<h2>TEAM 2</h2>
+<table>
+    <tr>
+        <th>Nombre</th>
+        <th>MMR</th>
+    </tr>
+    {% for players in Team2 %}
+    <tr>
+        <td>{{ players.name }}</td>
+        <td>{{ players.mmr }}</td>
+    </tr>
+    {% else %}
+    <tr>No Players.</tr>
+    {% endfor %}
+    <!-- <tr>
+        <td>Average MMR</td>
+        <td>{{ Matchobj.avg_mmr(1) }}</td>
+    </tr> -->
+
+</table>
+<h4>Average MMR: {{ Matchobj.avg_mmr(1) }}</h4>
+
+
+<h2>Players</h2>
+<form action="{{ url_for('matchmaking') }}" method="post">
+
+    <div class="form-group">
+        <input class="form-control" name="name" placeholder="Player Name">
+        <input class="form-control" name="mmr" placeholder="MMR">
+        <button class="btn btn-primary" type="submit">Add player</button>
+    </div>
+
+    <!-- <div class="form-group">
+    </div> -->
+
+</form>
+<table>
+    <tr>
+        <th>Nombre</th>
+        <th>MMR</th>
+        <th>Actions</th>
+    </tr>
+    {% for player in Players %}
+    <tr>
+        <td>{{ player.name }}</td>
+        <td>{{ player.mmr }}</td>
+        <td>
+            <form action="{{ url_for('matchmaking') }}" method="post">
+                <div class="form-group">
+                    <!-- <span> {{player.has_parent(Matchobj)}}</span> -->
+
+                    <button class="btn btn-primary" value="{{ player.name }}" name='include_player' 
+                    {% if ( player in Team1 or player in Team2)  %}
+                    disabled 
+                    {% endif %}
+                    type="submit">Add to match</button>
+                    <button class="btn btn-primary" value="{{ player.name }}" name='delete_player' type="submit">Delete
+                        Player</button>
+                </div>
+            </form>
+        </td>
+    </tr>
+    {% else %}
+    <tr>No Players.</tr>
+    {% endfor %}
+</table>
+
+
+{% endblock %}
