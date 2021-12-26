@@ -1,6 +1,6 @@
 # MatchMaking
 
-A simple flask application to balance team players for a match.
+A simple flask application to balance team players for videogames.
 
 [Live Demo](https://matchmaking-u2rlwnoy2a-uc.a.run.app/)
 
